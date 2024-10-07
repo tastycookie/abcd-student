@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     cleanWs()
-                    git credentialsId: 'gh-abcd-student', url: 'https://github.com/tastycookie/abcd-student', branch: 'master'
+                    git credentialsId: 'gh-abcd-student', url: 'https://github.com/tastycookie/abcd-student', branch: 'main'
                 }
             }
         }
