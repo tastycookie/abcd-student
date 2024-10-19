@@ -39,7 +39,7 @@ pipeline {
     
         stage('Example') {
             steps {
-                echo 'Hello!'
+                echo 'Hello33!'
                 sh 'ls -la'
             }
         }
