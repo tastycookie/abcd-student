@@ -35,6 +35,10 @@ pipeline {
                 docker stop zap juice-shop
                 docker rm zap
             '''
+            defectDojoPublisher(artifact: 'results/sca-osv-scanner.json', 
+                    productName: 'Juice Shop', 
+                    scanType: 'DAST Scan', 
+                    engagementName: 'sec@shinsec.pl')
         }
     }
 }
