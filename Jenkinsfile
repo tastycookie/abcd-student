@@ -37,7 +37,7 @@ pipeline {
             '''
             defectDojoPublisher(artifact: 'results/zap_xml_report.xml', 
                     productName: 'Juice Shop', 
-                    scanType: 'DAST Scan', 
+                    scanType: 'ZAP Scan', 
                     engagementName: 'sec@shinsec.pl')
         }
     }
