@@ -12,12 +12,12 @@ pipeline {
                 }
             }
         }
-    stages {
+  
         stage('OSV-Scanner') {
             steps {
                 sh 'whoami'
                 sh 'osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json' 
-            }
+      
         }
 
      stage('[ZAP] Baseline passive-scan') {
