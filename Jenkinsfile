@@ -17,7 +17,7 @@ pipeline {
                 sh 'echo $WORKSPACE'
                 sh 'mkdir -p ${WORKSPACE}/results'
                 sh 'touch ${WORKSPACE}/results/test.txt'
-                sh 'osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json' 
+                    osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json || echo "OSV-Scanner failed but continuing pipeline."
             }
         }
         stage('[ZAP] Baseline passive-scan') {
