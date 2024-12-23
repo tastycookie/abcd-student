@@ -22,6 +22,14 @@ pipeline {
                 '''
             }
         }
+
+        stage('Secret-Scanner') {
+            steps {
+                sh  '''
+                    trufflehog git file://. --since-commit master --branch feature/example --only-verified --fail
+                '''
+            }
+        }
         stage('[ZAP] Baseline passive-scan') {
             steps {
                 sh '''
