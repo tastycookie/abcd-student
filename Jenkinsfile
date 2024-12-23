@@ -12,6 +12,13 @@ pipeline {
                 }
             }
         }
+    stages {
+        stage('OSV-Scanner') {
+            steps {
+                sh 'whoami'
+                sh 'osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json' 
+            }
+        }
 
      stage('[ZAP] Baseline passive-scan') {
     steps {
@@ -38,6 +45,11 @@ pipeline {
             defectDojoPublisher(artifact: 'results/zap_xml_report.xml', 
                     productName: 'Juice Shop', 
                     scanType: 'ZAP Scan', 
+                    engagementName: 'sec@shinsec.pl')
+
+            defectDojoPublisher(artifact: 'results/sca-osv-scanner.json', 
+                    productName: 'Juice Shop', 
+                    scanType: 'OSV Scan', 
                     engagementName: 'sec@shinsec.pl')
         }
     }
