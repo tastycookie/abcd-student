@@ -12,7 +12,11 @@ pipeline {
                 }
             }
         }
-        
+        stage('OSV-Scanner') {
+            steps {
+                sh 'whoami'
+                sh 'osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json' 
+            }
         }
         stage('[ZAP] Baseline passive-scan') {
             steps {
@@ -27,13 +31,6 @@ pipeline {
                     docker run --name zap --add-host=host.docker.internal:host-gateway -v /Users/xseni/Docker/devsecops/abcd-lab/zap:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable bash -c  "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive_scan.yaml"  || true
                 '''
             }
-
-            stage('OSV-Scanner') {
-            steps {
-                sh 'whoami'
-                sh 'osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json' 
-            }
-                
             post {
                 always {
                     sh '''
