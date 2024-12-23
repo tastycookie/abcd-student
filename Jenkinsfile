@@ -14,15 +14,14 @@ pipeline {
         }
         stage('OSV-Scanner') {
             steps {
-                sh 'whoami'
+                sh 'echo $WORKSPACE'
+                sh 'mkdir -p ${WORKSPACE}/results'
+                sh 'touch ${WORKSPACE}/results/test.txt'
                 sh 'osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json' 
             }
         }
         stage('[ZAP] Baseline passive-scan') {
             steps {
-                sh 'echo $WORKSPACE'
-                sh 'mkdir -p ${WORKSPACE}/results'
-                sh 'touch ${WORKSPACE}/results/test.txt'
                 sh '''
                     docker run --name juice-shop -d --rm -p 3000:3000 bkimminich/juice-shop
                     sleep 5
