@@ -57,6 +57,17 @@ pipeline {
                         productName: 'Juice Shop', 
                         scanType: 'OSV Scan', 
                         engagementName: 'sec@shinsec.pl')
+
+                       defectDojoPublisher(artifact: 'results/zap_xml_report.xml', 
+                        productName: 'Juice Shop', 
+                        scanType: 'Trufflehog Scan', 
+                        engagementName: 'sec@shinsec.pl')
+
+                       defectDojoPublisher(artifact: 'results/zap_xml_report.xml', 
+                        productName: 'Juice Shop', 
+                        scanType: 'Semgrep JSON Repor', 
+                        engagementName: 'sec@shinsec.pl')
+
                 }
             }
         }
