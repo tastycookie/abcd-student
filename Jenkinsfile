@@ -26,7 +26,7 @@ pipeline {
         stage('Secret-Scanner') {
             steps {
                 sh  '''
-                    trufflehog git file://. --since-commit main --branch feature/example --only-verified --fail
+                    trufflehog git file://. --only-verified --fail
                 '''
             }
         }
