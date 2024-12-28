@@ -82,11 +82,6 @@ pipeline {
                 }
             }
         }
-        stage('Example') {
-            steps {
-                echo 'Hello33!'
-                sh 'ls -la'
-            }
-        }
+
     }
 }
