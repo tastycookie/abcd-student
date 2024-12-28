@@ -31,6 +31,16 @@ pipeline {
                 '''
             }
         }
+
+        stage('SAST-Scanner') {
+            steps {
+                sh  '''
+                    semgrep --config auto --json --output ${WORKSPACE}/results/semgrep-results.json || echo "Semgrep scan completed with warnings."
+
+                '''
+            }
+        }
+        
         stage('[ZAP] Baseline passive-scan') {
             steps {
                 sh '''
@@ -64,7 +74,7 @@ pipeline {
                         scanType: 'Trufflehog Scan', 
                         engagementName: 'sec@shinsec.pl')
 
-                       defectDojoPublisher(artifact: 'results/zap_xml_report.xml', 
+                       defectDojoPublisher(artifact: 'results/semgrep-results.json', 
                         productName: 'Juice Shop', 
                         scanType: 'Semgrep JSON Repor', 
                         engagementName: 'sec@shinsec.pl')
