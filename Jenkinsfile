@@ -26,7 +26,8 @@ pipeline {
         stage('Secret-Scanner') {
             steps {
                 sh  '''
-                    trufflehog git file://. --only-verified
+                    trufflehog git file://. --only-verified --json > ${WORKSPACE}/results/trufflehog-results.json
+
                 '''
             }
         }
@@ -58,7 +59,7 @@ pipeline {
                         scanType: 'OSV Scan', 
                         engagementName: 'sec@shinsec.pl')
 
-                       defectDojoPublisher(artifact: 'results/zap_xml_report.xml', 
+                       defectDojoPublisher(artifact: 'results/trufflehog-results.json', 
                         productName: 'Juice Shop', 
                         scanType: 'Trufflehog Scan', 
                         engagementName: 'sec@shinsec.pl')
